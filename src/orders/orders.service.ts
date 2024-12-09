@@ -26,8 +26,14 @@ export class OrdersService {
     public create(
         orderData: Omit<Order, 'id' | 'createdAt' | 'updatedAt'>,
     ): Promise<Order> {
+        const { productId, ...otherData } = orderData; 
         return this.prismaService.order.create({
-            data: orderData,
+            data: {
+                ...otherData,
+                product: {
+                  connect: { id: productId },
+                },
+              },
         });
     }
       
