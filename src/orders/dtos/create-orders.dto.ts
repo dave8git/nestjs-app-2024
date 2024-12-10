@@ -13,6 +13,6 @@ export class CreateOrderDTO {
 
   @IsNotEmpty()
   @IsString()
-  @Transform(({ value }) => (Array.isArray(value) ? value.join(', ') : ''))
+  @Transform(({ value }) => (Array.isArray(value) ? value.join(', ') : value))
   address: string;
 }
