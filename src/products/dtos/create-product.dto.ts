@@ -18,6 +18,6 @@ export class CreateProductDTO {
     @Min(0)
     price: number;
 
-    @Transform(({ value }) => (Array.isArray(value) ? value.join(', ') : ''))
+    @Transform(({ value }) => (Array.isArray(value) ? value.join(', ') : value))
     description: string;
 }
