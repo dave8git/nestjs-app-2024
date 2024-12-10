@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../shared/services/prisma.service';
-import { Order } from '@prisma/client'
+import { Order } from '@prisma/client';
 import { BadRequestException } from '@nestjs/common';
 
 @Injectable()
 export class OrdersService {
     constructor(private prismaService: PrismaService) {}
-
+    
     public getAll(): Promise<Order[]> {
         return this.prismaService.order.findMany();
       }
@@ -23,19 +23,21 @@ export class OrdersService {
         });
     }
 
-    public create(
+
+      public create(
         orderData: Omit<Order, 'id' | 'createdAt' | 'updatedAt'>,
-    ): Promise<Order> {
-        const { productId, ...otherData } = orderData; 
+      ): Promise<Order> {
+        const { productId, ...otherData } = orderData;
         return this.prismaService.order.create({
-            data: {
-                ...otherData,
-                product: {
-                  connect: { id: productId },
-                },
-              },
+          data: {
+            ...otherData,
+            product: {
+              connect: { id: productId },
+            },
+          }
         });
-    }
+      }
+            
       
     public updateById(
       id: Order['id'],
