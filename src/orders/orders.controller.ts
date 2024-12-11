@@ -21,10 +21,10 @@ export class OrdersController {
   }
 
   @Delete('/:id')
-  async deleteById(@Param('id', new ParseUUIDPipe()) id: string) {
+  async deleteOrder(@Param('id', new ParseUUIDPipe()) id: string) {
     if (!(await this.ordersService.getById(id)))
-      throw new NotFoundException('Order not found');
-    await this.ordersService.deleteById(id);
+      throw new NotFoundException('Product not found');
+    await this.ordersService.deleteOrder(id);
     return { success: true };
   }
 
